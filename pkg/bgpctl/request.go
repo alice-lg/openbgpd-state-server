@@ -7,8 +7,8 @@ package bgpctl
 // This is being passed to bgpctl as command argument.
 type Request []string
 
-// ID returns the identifier of the command.
-func (req Request) ID() string {
+// Command returns the command passed to bgpctl
+func (req Request) Command() string {
 	if len(req) == 0 {
 		return ""
 	}
@@ -16,7 +16,7 @@ func (req Request) ID() string {
 }
 
 // Sanitize removes possibly dangrous input
-// from the request.
+// from the request. See FilterUnsafeString.
 func (req Request) Sanitize() Request {
 	req1 := make(Request, 0, len(req))
 	for _, arg := range req {

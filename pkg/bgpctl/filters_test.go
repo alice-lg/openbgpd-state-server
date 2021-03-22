@@ -17,3 +17,25 @@ func TestFilterUnsafeString(t *testing.T) {
 		t.Error("filtered should only allow 'test'")
 	}
 }
+
+func TestAllowPatterns(t *testing.T) {
+	p := AllowPatterns{
+		Request{"foo", "*"},
+		Request{"bar"}}
+
+	if !p.IsAllowed(Request{"foo", "23.42.123.5"}) {
+		t.Error("expected this request to be allowed")
+	}
+
+	if !p.IsAllowed(Request{"bar"}) {
+		t.Error("this request should be allowed")
+	}
+
+	if p.IsAllowed(Request{"bar", "baz"}) {
+		t.Error("this request should not be allowed")
+	}
+
+	if p.IsAllowed(Request{"foo"}) {
+		t.Error("this request should not be allowed")
+	}
+}
