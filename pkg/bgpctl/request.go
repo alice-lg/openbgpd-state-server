@@ -16,7 +16,7 @@ func RequestFromString(s string) Request {
 	return strings.Split(s, " ")
 }
 
-// Command returns the command passed to bgpctl
+// Command returns the name of the command passed to bgpctl
 func (req Request) Command() string {
 	if len(req) == 0 {
 		return ""
