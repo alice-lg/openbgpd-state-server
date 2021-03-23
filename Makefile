@@ -32,8 +32,10 @@ LDFLAGS_STATIC := $(LDFLAGS) -extldflags "-static"
 
 all: test $(CMD)
 
+
 test:
 	cd pkg/bgpctl && go test
+
 
 static: $(CMD)_static
 
