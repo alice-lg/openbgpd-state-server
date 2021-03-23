@@ -4,7 +4,7 @@
 # @created     : Tuesday Mar 23, 2021 08:29:00 CET
 ######################################################################
 
-PROGRAM := openbgpd-state-server
+CMD := openbgpd-state-server
 MODULE := github.com/alice-lg/openbgpd-state-server
 
 # Force using the vendored dependencies
@@ -30,19 +30,19 @@ LDFLAGS := -X $(MODULE)/pkg/server.Version=$(VERSION) \
 LDFLAGS_STATIC := $(LDFLAGS) -extldflags "-static"
 
 
-all: test $(PROGRAM)
+all: test $(CMD)
 
 test:
 	cd pkg/bgpctl && go test
 
-static: $(PROGRAM)_static
+static: $(CMD)_static
 
 
-$(PROGRAM):
-	cd cmd/$(PROGRAM) && go build $(CFLAGS) -ldflags '$(LDFLAGS)'
+$(CMD):
+	cd cmd/$(CMD) && go build $(CFLAGS) -ldflags '$(LDFLAGS)'
 
-$(PROGRAM)_static:
-	cd cmd/$(PROGRAM) && go build $(CFLAGS) -a -ldflags '$(LDFLAGS_STATIC)'
+$(CMD)_static:
+	cd cmd/$(CMD) && go build $(CFLAGS) -a -ldflags '$(LDFLAGS_STATIC)'
 	
 
 .PHONY: clean
