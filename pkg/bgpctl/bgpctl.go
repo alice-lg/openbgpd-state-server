@@ -2,8 +2,13 @@ package bgpctl
 
 import (
 	"context"
+	"errors"
 	"os/exec"
 )
+
+// ErrCommandDisallowed will be returned if the
+// request does not match any pattern in AllowedCommands
+var ErrCommandDisallowed = errors.New("the requested command is not approved")
 
 // BGPCTL is a wrapper for bgpctl with a filter list
 // for approved commands.
@@ -20,6 +25,10 @@ type BGPCTL struct {
 // Do runs the configured bgpctl command with
 // the request as argumens.
 func (ctl *BGPCTL) Do(ctx context.Context, req Request) ([]byte, error) {
+	if !ctl.AllowedCommands.IsAllowed(req) {
+		return nil, ErrCommandDisallowed
+	}
+
 	args := append(ctl.Args, req...)
 	cmd := exec.CommandContext(ctx, ctl.Name, args...)
 	return cmd.CombinedOutput()
