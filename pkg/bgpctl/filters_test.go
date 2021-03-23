@@ -19,7 +19,7 @@ func TestFilterUnsafeString(t *testing.T) {
 }
 
 func TestAllowPatterns(t *testing.T) {
-	p := AllowPatterns{
+	p := CommandPatterns{
 		Request{"foo", "*"},
 		Request{"bar"}}
 
