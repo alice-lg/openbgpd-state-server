@@ -42,7 +42,7 @@ $(CMD):
 	cd cmd/$(CMD) && go build $(CFLAGS) -ldflags '$(LDFLAGS)'
 
 $(CMD)_static:
-	cd cmd/$(CMD) && go build $(CFLAGS) -a -ldflags '$(LDFLAGS_STATIC)'
+	cd cmd/$(CMD) && CGO_ENABLED=0 go build $(CFLAGS) -a -ldflags '$(LDFLAGS_STATIC)'
 	
 
 .PHONY: clean
