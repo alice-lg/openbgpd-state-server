@@ -18,7 +18,7 @@ func TestFilterUnsafeString(t *testing.T) {
 	}
 }
 
-func TestAllowPatterns(t *testing.T) {
+func TestCommandPatternsIsAllowed(t *testing.T) {
 	p := CommandPatterns{
 		Request{"foo", "*"},
 		Request{"bar"}}
@@ -38,4 +38,13 @@ func TestAllowPatterns(t *testing.T) {
 	if p.IsAllowed(Request{"foo"}) {
 		t.Error("this request should not be allowed")
 	}
+}
+
+func TestCommandPatternsAdd(t *testing.T) {
+	p := CommandPatterns{}
+	p.Add(RequestFromString("foo bar"))
+	if len(p) != 1 {
+		t.Error("unexpected len:", len(p))
+	}
+
 }

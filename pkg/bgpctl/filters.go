@@ -5,8 +5,8 @@ import (
 )
 
 // RegMatchUnsafe is a regular expression matching
-// not a-z, A-Z, 0-9 or :, / and ' '
-var RegMatchUnsafe = regexp.MustCompile(`[^a-zA-Z0-9:\.\s\/]+`)
+// not a-z, A-Z, 0-9 or :, /, _ and ' '
+var RegMatchUnsafe = regexp.MustCompile(`[^a-zA-Z0-9:\.\s\/_]+`)
 
 // FilterUnsafeString removes anything not alphanumeric
 // from the string.
@@ -19,7 +19,12 @@ func FilterUnsafeString(s string) string {
 // marks for any allowed string. For example
 //   show neighbor * timers
 // would allow for querying timers
-type CommandPatterns [][]string
+type CommandPatterns []Request
+
+// Add will add a request to the pattern list
+func (p *CommandPatterns) Add(req Request) {
+	*p = append(*p, req)
+}
 
 // IsAllowed checks if the command matches the pattern
 func (p CommandPatterns) IsAllowed(req Request) bool {

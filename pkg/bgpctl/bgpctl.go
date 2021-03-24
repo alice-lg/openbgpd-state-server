@@ -22,6 +22,18 @@ type BGPCTL struct {
 	AllowedCommands CommandPatterns
 }
 
+// FromString parses the bgpctl invocation
+// and returns a new wrapped BGPCTL.
+func FromString(s string) *BGPCTL {
+	req := RequestFromString(s)
+	ctl := &BGPCTL{
+		Name:            req.Command(),
+		Args:            req.Args(),
+		AllowedCommands: CommandPatterns{},
+	}
+	return ctl
+}
+
 // Do runs the configured bgpctl command with
 // the request as argumens.
 func (ctl *BGPCTL) Do(ctx context.Context, req Request) ([]byte, error) {
