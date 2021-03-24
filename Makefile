@@ -20,6 +20,17 @@ endif
 BUILD := $(shell git rev-parse --short HEAD)
 
 
+# Go compiler env for setting arch and OS
+ifdef GOOS
+  GOENV := $(GOENV) GOOS=$(GOOS)
+endif
+
+ifdef GOARCH
+  GOENV := $(GOENV) GOARCH=$(GOARCH)
+endif
+
+
+# Compile flags
 CFLAGS := -buildmode=pie
 ifneq ($(VENDOR), false)
   CFLAGS += -mod=vendor
@@ -27,25 +38,28 @@ endif
 
 LDFLAGS := -X $(MODULE)/pkg/server.Version=$(VERSION) \
 		   -X $(MODULE)/pkg/server.Build=$(BUILD)
-LDFLAGS_STATIC := $(LDFLAGS) -extldflags "-static"
 
+# Static build
+ifdef STATIC
+  LDFLAGS := $(LDFLAGS) -extldflags "-static"
+  GOENV := $(GOENV) CGO_ENABLED=0
+endif
 
-all: test $(CMD)
+#
+# Build
+#
 
+all: $(CMD)
 
 test:
 	cd pkg/bgpctl && go test
 
-
-static: $(CMD)_static
-
+static:
+	STATIC=1 make all
 
 $(CMD):
-	cd cmd/$(CMD) && go build $(CFLAGS) -ldflags '$(LDFLAGS)'
+	cd cmd/$(CMD) && $(GOENV) go build $(CFLAGS) -ldflags '$(LDFLAGS)'
 
-$(CMD)_static:
-	cd cmd/$(CMD) && CGO_ENABLED=0 go build $(CFLAGS) -a -ldflags '$(LDFLAGS_STATIC)'
-	
 
 .PHONY: clean
 
