@@ -1,5 +1,9 @@
 package server
 
+import (
+	"time"
+)
+
 var (
 	// Version is the server version. Usually the git tag
 	// pointing to HEAD. See top level Makefile for details.
@@ -17,4 +21,7 @@ type Status struct {
 	Service string `json:"service"`
 	Version string `json:"version"`
 	Build   string `json:"build"`
+
+	ServerTimeUTC time.Time     `json:"server_time_utc"`
+	ServerUptime  time.Duration `json:"server_uptime"`
 }

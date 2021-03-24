@@ -28,15 +28,22 @@ const (
 // and querying the openbgpd.
 type StateServer struct {
 	BGPCTL *bgpctl.BGPCTL
+
+	startedAt time.Time
 }
 
 // Status returns the current server status
 func (s *StateServer) Status() *Status {
+	serverTime := time.Now().UTC()
+	uptime := s.startedAt.Sub(serverTime)
+
 	// Get bgpctl status
 	return &Status{
-		Service: "openbgpd-state-server",
-		Version: Version,
-		Build:   Build,
+		Service:       "openbgpd-state-server",
+		Version:       Version,
+		Build:         Build,
+		ServerTimeUTC: serverTime,
+		ServerUptime:  uptime,
 	}
 }
 
@@ -132,6 +139,7 @@ func (s *StateServer) respondJSON(
 
 // StartHTTP starts the HTTP server at a given listen address
 func (s *StateServer) StartHTTP(addr string) {
+	s.startedAt = time.Now().UTC()
 	log.Fatal(http.ListenAndServe(addr,
 		RequestLogger(s)))
 }
