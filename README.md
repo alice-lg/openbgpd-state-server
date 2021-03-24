@@ -12,14 +12,34 @@ sure your go version is >= 1.10.
 
 Running `go get github.com/alice-lg/openbgp-state-server/cmd/openbgp-state-server`
 will give you a binary. You might need to cross-compile
-it - GOARCH and GOOS are your friends.
+it by passing a GOARCH and GOOS to the make environment.
 
 We provide a Makefile for more advanced compilation/configuration.
 Running `make static` will create statically linked (linux)
 executable.
 
+You might need to cross-compile it by passing a GOARCH
+and GOOS to the make environment.
+
+For example: `GOOS=darwin make static` will produce a static Mac build.
+Where `make static` is then just a shorthand for `STATIC=1 GOOS=darwin make`
+
+## Testing
+
+Run the test suite with `make test`.
 
 ## Configuration
 
-All runtime configuration is done via commandline flags.
+All runtime configuration is done via commandline flags:
+
+    -l <addr>       Set the listen address  (default: 127.0.0.1:27111)
+    --listen <addr>
+
+    --bgpctl "mybgpctl -j -s /path/to/socket"
+                    Set the bgpctl command  (default: "bgpctl -j")
+
+    --allow
+    -a <pattern>    Allow a command. For example "show neigbors _ timer",
+                    
+Please note that all commands have to be explicitly allowed.
 

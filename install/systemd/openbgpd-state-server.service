@@ -1,0 +1,13 @@
+[Unit]
+Description=openbgpd-state-server @ 127.0.0.1:72111
+Wants=network.target
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/opt/alice-lg/openbgpd-state-server/bin/openbgpd-state-server \
+    -l 127.0.0.1:72111 \
+    -a ....
+
+[Install]
+WantedBy=multi-user.target
