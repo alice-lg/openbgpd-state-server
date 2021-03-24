@@ -27,7 +27,7 @@ const (
 // It implements a request handler decoding the request
 // and querying the openbgpd.
 type StateServer struct {
-	// OpenBGPD
+	BGPCTL *bgpctl.BGPCTL
 }
 
 // Status returns the current server status

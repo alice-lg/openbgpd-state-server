@@ -16,6 +16,11 @@ func RequestFromString(s string) Request {
 	return strings.Split(s, " ")
 }
 
+// String encodes request into a string again
+func (req Request) String() string {
+	return strings.Join(req, " ")
+}
+
 // Command returns the name of the command passed to bgpctl
 func (req Request) Command() string {
 	if len(req) == 0 {
