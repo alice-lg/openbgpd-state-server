@@ -35,7 +35,7 @@ type StateServer struct {
 // Status returns the current server status
 func (s *StateServer) Status() *Status {
 	serverTime := time.Now().UTC()
-	uptime := s.startedAt.Sub(serverTime)
+	uptime := serverTime.Sub(s.startedAt)
 
 	// Get bgpctl status
 	return &Status{
