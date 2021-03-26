@@ -119,6 +119,9 @@ func (s *StateServer) handleError(
 ) {
 	log.Println("ERROR:", err.Error())
 	status := http.StatusInternalServerError
+	if errors.Is(err, ErrNoSuchRoute) {
+		status = http.StatusNotFound
+	}
 	s.respondJSON(res, status, err.Error())
 }
 
