@@ -43,4 +43,13 @@ All runtime configuration is done via commandline flags:
                     
 Please note that all commands have to be explicitly allowed.
 
+### Looking Glass Configuration
 
+To use the state server with alice, you have to allow
+the following queries:
+
+```bash
+  -a "show neighbor" \
+  -a "show rib in neighbor * detail" \
+  -a "show rib in detail"
+```
