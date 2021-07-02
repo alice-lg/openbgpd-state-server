@@ -45,7 +45,7 @@ Please note that all commands have to be explicitly allowed.
 
 ### Looking Glass Configuration
 
-To use the state server with alice, you have to allow
+To use the state server with Alice, you have to allow
 the following queries:
 
 ```bash
