@@ -50,6 +50,6 @@ the following queries:
 
 ```bash
   -a "show neighbor" \
-  -a "show rib in neighbor * detail" \
-  -a "show rib in detail"
+  -a "show rib neighbor * detail" \
+  -a "show rib detail"
 ```
