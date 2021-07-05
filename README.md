@@ -32,7 +32,7 @@ Run the test suite with `make test`.
 
 All runtime configuration is done via commandline flags:
 
-    -l <addr>       Set the listen address  (default: 127.0.0.1:27111)
+    -l <addr>       Set the listen address  (default: 127.0.0.1:29111)
     -listen <addr>
 
     -bgpctl "mybgpctl -j -s /path/to/socket"
