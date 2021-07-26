@@ -10,7 +10,7 @@ The output can then be consumed by the Alice Looking Glass.
 You will need to have go installed to build the server. Please make
 sure your go version is >= 1.13.
 
-Running `go get github.com/alice-lg/openbgp-state-server/cmd/openbgp-state-server`
+Running `go get github.com/alice-lg/openbgpd-state-server/cmd/openbgp-state-server`
 will give you a binary. You might need to cross-compile
 it by passing a GOARCH and GOOS to the make environment.
 
