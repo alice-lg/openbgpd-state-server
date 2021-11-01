@@ -39,7 +39,7 @@ All runtime configuration is done via commandline flags:
                     Set the bgpctl command  (default: "bgpctl -j")
 
     -allow
-    -a <pattern>    Allow a command. For example "show neigbor _ timer",
+    -a <pattern>    Allow a command. For example "show neighbor _ timer",
                     
 Please note that all commands have to be explicitly allowed.
 
@@ -50,6 +50,7 @@ the following queries:
 
 ```bash
   -a "show neighbor" \
-  -a "show rib in neighbor * detail" \
+  -a "show summary" \
+  -a "show rib neighbor * detail" \
   -a "show rib in detail"
 ```
