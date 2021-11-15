@@ -8,7 +8,7 @@ The output can then be consumed by the Alice Looking Glass.
 ## Installation
 
 You will need to have go installed to build the server. Please make
-sure your go version is >= 1.13.
+sure your go version is >= 1.16.
 
 Running `go get github.com/alice-lg/openbgpd-state-server/cmd/openbgpd-state-server`
 will give you a binary. You might need to cross-compile
