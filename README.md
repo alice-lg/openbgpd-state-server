@@ -8,9 +8,9 @@ The output can then be consumed by the Alice Looking Glass.
 ## Installation
 
 You will need to have go installed to build the server. Please make
-sure your go version is >= 1.10.
+sure your go version is >= 1.16.
 
-Running `go get github.com/alice-lg/openbgp-state-server/cmd/openbgp-state-server`
+Running `go get github.com/alice-lg/openbgpd-state-server/cmd/openbgpd-state-server`
 will give you a binary. You might need to cross-compile
 it by passing a GOARCH and GOOS to the make environment.
 
@@ -39,7 +39,7 @@ All runtime configuration is done via commandline flags:
                     Set the bgpctl command  (default: "bgpctl -j")
 
     -allow
-    -a <pattern>    Allow a command. For example "show neigbor _ timer",
+    -a <pattern>    Allow a command. For example "show neighbor _ timer",
                     
 Please note that all commands have to be explicitly allowed.
 
@@ -50,6 +50,7 @@ the following queries:
 
 ```bash
   -a "show neighbor" \
+  -a "show summary" \
   -a "show rib neighbor * detail" \
-  -a "show rib detail"
+  -a "show rib in detail"
 ```
