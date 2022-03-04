@@ -49,10 +49,6 @@ func (p CommandPatterns) IsAllowed(req Request) bool {
 	return false
 }
 
-// DefaultAllowedCommands is set of allowed
+// DefaultAllowedCommands is an empty set of allowed
 // command patterns.
-var DefaultAllowedCommands = CommandPatterns{
-	RequestFromString("show"),
-	RequestFromString("show neighbor"),
-	RequestFromString("show neighbor *"),
-}
+var DefaultAllowedCommands = CommandPatterns{}

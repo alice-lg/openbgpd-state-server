@@ -32,7 +32,7 @@ const (
 // Flag Parsers
 // -bgpctl
 func parseFlagBGPCTL(s string) error {
-	ctl = bgpctl.FromString(s)
+	ctl = bgpctl.FromString(s).Structured()
 	return nil
 }
 
@@ -68,12 +68,13 @@ func main() {
 		fmt.Fprintf(os.Stderr, "please explicitly allow commands using the -allow flag\n")
 		os.Exit(-1)
 	}
+	fmt.Println("using bgpctl:", ctl.Name, ctl.Args)
+	ctl.AllowedCommands = allowedCmds
 
 	fmt.Println("allowed commands:")
-	for _, cmd := range allowedCmds {
+	for _, cmd := range ctl.AllowedCommands {
 		fmt.Println("  -", cmd)
 	}
-	ctl.AllowedCommands = allowedCmds
 
 	// Start the server
 	s := server.StateServer{BGPCTL: ctl}

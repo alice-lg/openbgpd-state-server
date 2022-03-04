@@ -99,7 +99,7 @@ func (s *StateServer) serveBGPD(res http.ResponseWriter, req *http.Request) {
 	ctlreq := bgpctl.RequestFromString(cmd).Sanitize()
 
 	// Query bgpctl
-	result, err := bgpctl.DefaultBGPCTL.Do(ctx, ctlreq)
+	result, err := s.BGPCTL.Do(ctx, ctlreq)
 	if err != nil {
 		s.handleError(res, req, err)
 		return

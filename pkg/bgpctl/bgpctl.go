@@ -34,13 +34,27 @@ func FromString(s string) *BGPCTL {
 	return ctl
 }
 
+// Structured ensures json output in the the response
+func (ctl *BGPCTL) Structured() *BGPCTL {
+	hasFlag := false
+	for _, f := range ctl.Args {
+		if f == "-j" {
+			hasFlag = true
+			break
+		}
+	}
+	if !hasFlag {
+		ctl.Args = append(ctl.Args, "-j")
+	}
+	return ctl
+}
+
 // Do runs the configured bgpctl command with
 // the request as argumens.
 func (ctl *BGPCTL) Do(ctx context.Context, req Request) ([]byte, error) {
 	if !ctl.AllowedCommands.IsAllowed(req) {
 		return nil, ErrCommandDisallowed
 	}
-
 	args := append(ctl.Args, req...)
 	cmd := exec.CommandContext(ctx, ctl.Name, args...)
 	return cmd.CombinedOutput()
